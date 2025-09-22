@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لانا ستور - متجرك الخاص</title>
+    <title>سينما لانا - مشاهدة الأفلام اونلاين</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <style>
         :root {
-            --primary: #6a11cb;
-            --secondary: #2575fc;
-            --accent: #ff6b6b;
-            --success: #4ecdc4;
-            --warning: #ffd166;
-            --danger: #ff6b6b;
-            --light: #f8f9fa;
-            --dark: #1a1a2e;
-            --muted: #6c757d;
-            --card: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --radius: 16px;
+            --primary: #e50914;
+            --secondary: #b81d24;
+            --accent: #f5c518;
+            --dark: #141414;
+            --dark-gray: #2d2d2d;
+            --light-gray: #8c8c8c;
+            --white: #ffffff;
+            --card: #1a1a1a;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --radius: 8px;
             --transition: all 0.3s ease;
         }
 
@@ -30,20 +29,26 @@
 
         body {
             font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--dark);
+            background: var(--dark);
+            color: var(--white);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
             color: white;
             padding: 1rem 2rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: var(--dark);
             box-shadow: var(--shadow);
         }
 
@@ -63,26 +68,47 @@
             gap: 1rem;
             font-size: 1.8rem;
             font-weight: 700;
+            color: var(--primary);
         }
 
         .logo i {
             color: var(--accent);
         }
 
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
         .search-bar {
-            flex: 1;
-            max-width: 500px;
             position: relative;
+            max-width: 300px;
         }
 
         .search-bar input {
             width: 100%;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: var(--white);
+            backdrop-filter: blur(10px);
         }
 
         .search-bar button {
@@ -90,44 +116,12 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary);
+            background: none;
             border: none;
-            color: white;
-            padding: 8px;
-            border-radius: 50%;
+            color: var(--white);
             cursor: pointer;
         }
 
-        .nav-icons {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .nav-icons a {
-            color: white;
-            text-decoration: none;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .nav-icons a:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--danger);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 50%;
-        }
-
-        /* Mobile Menu */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -137,78 +131,137 @@
             cursor: pointer;
         }
 
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('https://image.tmdb.org/t/p/original/9m161GawbBb5nX1o9RbKBSY4Hl4.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .play-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .info-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .info-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         /* Categories */
         .categories {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
-            overflow-x: auto;
-            white-space: nowrap;
+            padding: 2rem;
+            background: var(--dark-gray);
         }
 
         .categories-nav {
             display: flex;
-            justify-content: center;
             gap: 1rem;
-            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 1rem;
         }
 
         .category-btn {
-            background: none;
+            background: var(--card);
             border: none;
+            color: var(--white);
             padding: 0.8rem 1.5rem;
             border-radius: 25px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 600;
-            color: var(--muted);
+            white-space: nowrap;
             flex-shrink: 0;
         }
 
         .category-btn.active,
         .category-btn:hover {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            background: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Products Grid */
-        .products-section {
+        /* Movies Grid */
+        .movies-section {
             padding: 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 2rem;
-            color: var(--dark);
-            position: relative;
+            color: var(--white);
+            border-right: 4px solid var(--primary);
+            padding-right: 1rem;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .products-grid {
+        .movies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .product-card {
-            background: white;
+        .movie-card {
+            background: var(--card);
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -216,137 +269,89 @@
             position: relative;
         }
 
-        .product-card:hover {
+        .movie-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
 
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--danger);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            z-index: 10;
-        }
-
-        .product-image {
+        .movie-poster {
             width: 100%;
-            height: 250px;
+            height: 400px;
             object-fit: cover;
             transition: var(--transition);
         }
 
-        .product-card:hover .product-image {
+        .movie-card:hover .movie-poster {
             transform: scale(1.1);
         }
 
-        .product-info {
+        .movie-info {
             padding: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .product-title {
+        .movie-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--dark);
+            color: var(--white);
         }
 
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .product-actions {
+        .movie-meta {
             display: flex;
-            gap: 0.5rem;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: var(--light-gray);
+            font-size: 0.9rem;
         }
 
-        .add-to-cart {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
+        .movie-rating {
+            color: var(--accent);
             font-weight: 600;
         }
 
-        .add-to-cart:hover {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            transform: translateY(-2px);
+        .movie-actions {
+            display: flex;
+            gap: 0.5rem;
         }
 
-        .wishlist-btn {
-            background: var(--light);
-            border: 2px solid var(--muted);
-            color: var(--muted);
+        .watch-btn {
+            flex: 1;
+            background: var(--primary);
+            color: white;
+            border: none;
             padding: 0.8rem;
-            border-radius: 8px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .watch-btn:hover {
+            background: var(--secondary);
+        }
+
+        .trailer-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: var(--radius);
             cursor: pointer;
             transition: var(--transition);
         }
 
-        .wishlist-btn:hover {
-            color: var(--danger);
-            border-color: var(--danger);
-            transform: translateY(-2px);
-        }
-
-        /* Features */
-        .features {
-            background: white;
-            padding: 3rem 2rem;
-            margin: 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 2rem;
-            border-radius: var(--radius);
-            background: var(--light);
-            transition: var(--transition);
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-
-        .feature i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .feature h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
+        .trailer-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Footer */
         .footer {
-            background: linear-gradient(135deg, var(--dark), #0f172a);
+            background: var(--dark-gray);
             color: white;
             padding: 3rem 2rem;
             margin-top: 4rem;
@@ -363,7 +368,7 @@
         .footer-section h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--accent);
+            color: var(--primary);
         }
 
         .footer-links {
@@ -375,13 +380,13 @@
         }
 
         .footer-links a {
-            color: var(--light);
+            color: var(--light-gray);
             text-decoration: none;
             transition: var(--transition);
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
             padding-right: 0.5rem;
         }
 
@@ -392,13 +397,13 @@
         }
 
         .social-links a {
-            color: white;
+            color: var(--white);
             font-size: 1.5rem;
             transition: var(--transition);
         }
 
         .social-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
             transform: translateY(-3px);
         }
 
@@ -407,6 +412,7 @@
             margin-top: 2rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
         }
 
         /* Responsive */
@@ -416,25 +422,34 @@
                 text-align: center;
             }
 
-            .search-bar {
-                width: 100%;
-                max-width: none;
-                order: 3;
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
             }
 
             .mobile-menu-btn {
                 display: block;
             }
 
-            .nav-icons {
-                display: none;
+            .search-bar {
+                max-width: 100%;
+                order: 3;
             }
 
-            .categories-nav {
-                justify-content: flex-start;
+            .hero-title {
+                font-size: 2.5rem;
             }
 
-            .products-grid {
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .movies-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1rem;
             }
@@ -453,26 +468,40 @@
                 font-size: 1.5rem;
             }
 
-            .products-grid {
+            .hero {
+                height: 60vh;
+                margin-top: 60px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .movies-grid {
                 grid-template-columns: 1fr;
             }
 
-            .feature {
-                padding: 1.5rem;
+            .hero-buttons {
+                flex-direction: column;
             }
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
         }
 
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        /* Cart Modal */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -480,9 +509,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 2000;
-            backdrop-filter: blur(5px);
         }
 
         .modal-content {
@@ -490,10 +518,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: var(--dark);
             padding: 2rem;
             border-radius: var(--radius);
-            max-width: 500px;
+            max-width: 800px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -505,189 +533,82 @@
             left: 1rem;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--muted);
+            color: var(--light-gray);
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-film"></i>
+                <span>سينما لانا</span>
+            </div>
+
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
-            
-            <div class="logo">
-                <i class="fas fa-store"></i>
-                <span>لانا ستور</span>
-            </div>
-            
+
+            <ul class="nav-menu">
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#movies">الأفلام</a></li>
+                <li><a href="#series">المسلسلات</a></li>
+                <li><a href="#new">الأحدث</a></li>
+                <li><a href="#top">الأكثر مشاهدة</a></li>
+            </ul>
+
             <div class="search-bar">
-                <input type="text" placeholder="ابحث عن المنتجات..." id="searchInput">
+                <input type="text" placeholder="ابحث عن فيلم أو مسلسل..." id="searchInput">
                 <button><i class="fas fa-search"></i></button>
-            </div>
-            
-            <div class="nav-icons">
-                <a href="#"><i class="fas fa-user"></i></a>
-                <a href="#">
-                    <i class="fas fa-heart"></i>
-                    <span class="badge">3</span>
-                </a>
-                <a href="#" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="badge">5</span>
-                </a>
             </div>
         </div>
     </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">جون ويك: الفصل الرابع</h1>
+            <p class="hero-description">جون ويك يكتشف طريقة لهزيمة النقابة العليا. ولكن قبل أن يتمكن من كسب حريته، يجب عليه مواجهة عدو جديد ذي تحالفات قوية في جميع أنحاء العالم.</p>
+            <div class="hero-buttons">
+                <button class="play-btn">
+                    <i class="fas fa-play"></i>
+                    مشاهدة الآن
+                </button>
+                <button class="info-btn">
+                    <i class="fas fa-info-circle"></i>
+                    معلومات أكثر
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- Categories -->
     <nav class="categories">
         <div class="categories-nav">
             <button class="category-btn active" data-category="all">الكل</button>
-            <button class="category-btn" data-category="clothing">ملابس أطفال</button>
-            <button class="category-btn" data-category="shoes">أحذية</button>
-            <button class="category-btn" data-category="makeup">مكياج</button>
-            <button class="category-btn" data-category="accessories">إكسسوارات</button>
-            <button class="category-btn" data-category="toys">ألعاب</button>
+            <button class="category-btn" data-category="action">أكشن</button>
+            <button class="category-btn" data-category="drama">دراما</button>
+            <button class="category-btn" data-category="comedy">كوميدي</button>
+            <button class="category-btn" data-category="horror">رعب</button>
+            <button class="category-btn" data-category="romance">رومانسي</button>
+            <button class="category-btn" data-category="sci-fi">خيال علمي</button>
+            <button class="category-btn" data-category="animation">كرتون</button>
         </div>
     </nav>
 
-    <!-- Products Section -->
-    <section class="products-section">
-        <h2 class="section-title">منتجاتنا المميزة</h2>
-        
-        <div class="products-grid">
-            <!-- Children's Clothing -->
-            <div class="product-card fade-in" data-category="clothing">
-                <span class="product-badge">جديد</span>
-                <img src="https://images.pexels.com/photos/5874584/pexels-photo-5874584.jpeg" alt="ملابس أطفال" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">بدلة أطفال قطنية</h3>
-                    <p class="product-price">75,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card fade-in" data-category="clothing">
-                <img src="https://images.pexels.com/photos/5874586/pexels-photo-5874586.jpeg" alt="فساتين أطفال" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">فستان طفلة مطرز</h3>
-                    <p class="product-price">95,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Makeup -->
-            <div class="product-card fade-in" data-category="makeup">
-                <span class="product-badge">الأكثر مبيعاً</span>
-                <img src="https://images.pexels.com/photos/3998006/pexels-photo-3998006.jpeg" alt="مكياج" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">مجموعة مكياج فاخرة</h3>
-                    <p class="product-price">120,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card fade-in" data-category="makeup">
-                <img src="https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg" alt="أحمر شفاه" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">أحمر شفاه مات</h3>
-                    <p class="product-price">25,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Shoes -->
-            <div class="product-card fade-in" data-category="shoes">
-                <span class="product-badge">عرض خاص</span>
-                <img src="https://images.pexels.com/photos/1478447/pexels-photo-1478447.jpeg" alt="أحذية أطفال" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">حذاء أطفال رياضي</h3>
-                    <p class="product-price">55,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accessories -->
-            <div class="product-card fade-in" data-category="accessories">
-                <img src="https://images.pexels.com/photos/984619/pexels-photo-984619.jpeg" alt="إكسسوارات" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">مجموعة إكسسوارات بناتي</h3>
-                    <p class="product-price">35,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Toys -->
-            <div class="product-card fade-in" data-category="toys">
-                <span class="product-badge">عرض محدود</span>
-                <img src="https://images.pexels.com/photos/4709340/pexels-photo-4709340.jpeg" alt="ألعاب أطفال" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">مجموعة ألعاب تعليمية</h3>
-                    <p class="product-price">85,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card fade-in" data-category="toys">
-                <img src="https://images.pexels.com/photos/3940411/pexels-photo-3940411.jpeg" alt="دمى" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">دمى محشوة فاخرة</h3>
-                    <p class="product-price">45,000 دينار</p>
-                    <div class="product-actions">
-                        <button class="add-to-cart">أضف إلى السلة</button>
-                        <button class="wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-            </div>
+    <!-- Movies Sections -->
+    <section class="movies-section" id="movies">
+        <h2 class="section-title">الأفلام المميزة</h2>
+        <div class="movies-grid" id="moviesGrid">
+            <!-- Movies will be loaded here by JavaScript -->
         </div>
     </section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="features-grid">
-            <div class="feature">
-                <i class="fas fa-truck"></i>
-                <h3>شحن سريع</h3>
-                <p>توصيل لجميع المحافظات خلال 24-48 ساعة</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-shield-alt"></i>
-                <h3>دفع آمن</h3>
-                <p>أنظمة دفع مشفرة وآمنة 100%</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-undo"></i>
-                <h3>إرجاع مجاني</h3>
-                <p>إرجاع المنتجات خلال 14 يوم بدون رسوم</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-headset"></i>
-                <h3>دعم فني</h3>
-                <p>خدمة عملاء متاحة 24/7 لمساعدتك</p>
-            </div>
+    <section class="movies-section" id="series">
+        <h2 class="section-title">أفضل المسلسلات</h2>
+        <div class="movies-grid" id="seriesGrid">
+            <!-- Series will be loaded here by JavaScript -->
         </div>
     </section>
 
@@ -695,13 +616,13 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>لانا ستور</h3>
-                <p>متجرك الشامل لكل ما يلزمك من موضة وتجميل بأفضل الأسعار</p>
+                <h3>سينما لانا</h3>
+                <p>أفضل موقع لمشاهدة الأفلام والمسلسلات اونلاين بجودة عالية</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             
@@ -709,116 +630,252 @@
                 <h3>روابط سريعة</h3>
                 <ul class="footer-links">
                     <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#">منتجات جديدة</a></li>
-                    <li><a href="#">عروض خاصة</a></li>
-                    <li><a href="#">المتجر</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
+                    <li><a href="#movies">الأفلام</a></li>
+                    <li><a href="#series">المسلسلات</a></li>
+                    <li><a href="#new">الأحدث</a></li>
+                    <li><a href="#top">الأكثر مشاهدة</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
-                <h3>خدمة العملاء</h3>
+                <h3>الفئات</h3>
                 <ul class="footer-links">
-                    <li><a href="#">سياسة الإرجاع</a></li>
-                    <li><a href="#">الشحن والتوصيل</a></li>
-                    <li><a href="#">الأسئلة الشائعة</a></li>
-                    <li><a href="#">تتبع الطلب</a></li>
-                    <li><a href="#">خريطة الموقع</a></li>
+                    <li><a href="#">أكشن</a></li>
+                    <li><a href="#">دراما</a></li>
+                    <li><a href="#">كوميدي</a></li>
+                    <li><a href="#">رعب</a></li>
+                    <li><a href="#">رومانسي</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
-                <h3>معلومات الاتصال</h3>
-                <p><i class="fas fa-map-marker-alt"></i> بغداد - العراق</p>
-                <p><i class="fas fa-phone"></i> 07505813053</p>
-                <p><i class="fas fa-envelope"></i> mmhamad420@gmail.com</p>
+                <h3>الدعم</h3>
+                <ul class="footer-links">
+                    <li><a href="#">اتصل بنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الاستخدام</a></li>
+                    <li><a href="#">الإبلاغ عن مشكلة</a></li>
+                </ul>
             </div>
         </div>
         
         <div class="copyright">
-            <p>© 2025 لانا ستور. جميع الحقوق محفوظة.</p>
+            <p>© 2025 سينما لانا. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div class="modal" id="cartModal">
+    <!-- Video Modal -->
+    <div class="modal" id="videoModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
-            <h2>سلة التسوق</h2>
-            <div id="cartItems">
-                <p>سلة التسوق فارغة</p>
+            <div id="videoPlayer">
+                <!-- Video player will be loaded here -->
             </div>
         </div>
     </div>
 
     <script>
-        // Cart functionality
-        const cartBtn = document.getElementById('cartBtn');
-        const cartModal = document.getElementById('cartModal');
-        const closeModal = document.getElementById('closeModal');
-        const cartItems = document.getElementById('cartItems');
-
-        cartBtn.addEventListener('click', () => {
-            cartModal.style.display = 'block';
-        });
-
-        closeModal.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                cartModal.style.display = 'none';
+        // Movies data from CinemaLike
+        const moviesData = [
+            {
+                id: 1,
+                title: "جون ويك: الفصل الرابع",
+                poster: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+                year: "2023",
+                rating: "8.2",
+                category: "action",
+                description: "جون ويك يكتشف طريقة لهزيمة النقابة العليا في مواجهة جديدة مليئة بالإثارة.",
+                videoUrl: "https://example.com/john-wick-4.mp4"
+            },
+            {
+                id: 2,
+                title: "أفاتار: طريق الماء",
+                poster: "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+                year: "2022",
+                rating: "7.8",
+                category: "sci-fi",
+                description: "استكشاف عالم باندورا المائي في هذا الجزء الجديد من سلسلة أفاتار.",
+                videoUrl: "https://example.com/avatar-2.mp4"
+            },
+            {
+                id: 3,
+                title: "البطل",
+                poster: "https://image.tmdb.org/t/p/w500/z1K71Ast1yD4iY3mKdY9XrHz4uU.jpg",
+                year: "2023",
+                rating: "8.5",
+                category: "drama",
+                description: "قصة ملحمية عن البطولة والتضحية في زمن الحرب.",
+                videoUrl: "https://example.com/the-hero.mp4"
+            },
+            {
+                id: 4,
+                title: "الرعب الليلي",
+                poster: "https://image.tmdb.org/t/p/w500/9zcbqSxdsRMZWHYtyCd1nXPr2xq.jpg",
+                year: "2023",
+                rating: "6.9",
+                category: "horror",
+                description: "رعب نفسي يجعلك تفكر مرتين قبل النوم.",
+                videoUrl: "https://example.com/night-terror.mp4"
+            },
+            {
+                id: 5,
+                title: "حب في باريس",
+                poster: "https://image.tmdb.org/t/p/w500/kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
+                year: "2023",
+                rating: "7.2",
+                category: "romance",
+                description: "قصة حب رومانسية في أجمل مدن العالم.",
+                videoUrl: "https://example.com/paris-love.mp4"
+            },
+            {
+                id: 6,
+                title: "ضحك ممنوع",
+                poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+                year: "2023",
+                rating: "7.9",
+                category: "comedy",
+                description: "كوميديا سوداء تضحكك حتى البكاء.",
+                videoUrl: "https://example.com/no-laughing.mp4"
             }
-        });
+        ];
 
-        // Add to cart functionality
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const productCard = button.closest('.product-card');
-                const productName = productCard.querySelector('.product-title').textContent;
-                const productPrice = productCard.querySelector('.product-price').textContent;
-                
-                // Add to cart logic
-                const cartItem = document.createElement('div');
-                cartItem.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                        <div>
-                            <h4>${productName}</h4>
-                            <p>${productPrice}</p>
-                        </div>
-                        <button style="background: var(--danger); color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer;">إزالة</button>
+        const seriesData = [
+            {
+                id: 7,
+                title: "صراع العروش",
+                poster: "https://image.tmdb.org/t/p/w500/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                year: "2011-2019",
+                rating: "9.3",
+                category: "drama",
+                description: "صراعات العائلات المالكة على عرش Westeros.",
+                videoUrl: "https://example.com/got.mp4"
+            },
+            {
+                id: 8,
+                title: "بريكينغ باد",
+                poster: "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+                year: "2008-2013",
+                rating: "9.5",
+                category: "drama",
+                description: "معلم كيمياء يتحول إلى تاجر مخدرات.",
+                videoUrl: "https://example.com/breaking-bad.mp4"
+            },
+            {
+                id: 9,
+                title: "الطبيب Who",
+                poster: "https://image.tmdb.org/t/p/w500/4edFyasCrkH4MKs6H4mHqlrxA6b.jpg",
+                year: "2005-حاليا",
+                rating: "8.6",
+                category: "sci-fi",
+                description: "مغامرات الطبيب عبر الزمان والمكان.",
+                videoUrl: "https://example.com/doctor-who.mp4"
+            }
+        ];
+
+        // DOM Elements
+        const moviesGrid = document.getElementById('moviesGrid');
+        const seriesGrid = document.getElementById('seriesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const videoModal = document.getElementById('videoModal');
+        const closeModal = document.getElementById('closeModal');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const header = document.getElementById('header');
+
+        // Load Movies
+        function loadMovies() {
+            moviesGrid.innerHTML = '';
+            moviesData.forEach(movie => {
+                const movieCard = createMovieCard(movie);
+                moviesGrid.appendChild(movieCard);
+            });
+        }
+
+        // Load Series
+        function loadSeries() {
+            seriesGrid.innerHTML = '';
+            seriesData.forEach(series => {
+                const seriesCard = createMovieCard(series);
+                seriesGrid.appendChild(seriesCard);
+            });
+        }
+
+        // Create Movie Card
+        function createMovieCard(movie) {
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            card.setAttribute('data-category', movie.category);
+            card.setAttribute('data-title', movie.title.toLowerCase());
+            
+            card.innerHTML = `
+                <img src="${movie.poster}" alt="${movie.title}" class="movie-poster" loading="lazy">
+                <div class="movie-info">
+                    <h3 class="movie-title">${movie.title}</h3>
+                    <div class="movie-meta">
+                        <span class="movie-year">${movie.year}</span>
+                        <span class="movie-rating">⭐ ${movie.rating}</span>
                     </div>
-                `;
-                
-                if (cartItems.querySelector('p')) {
-                    cartItems.innerHTML = '';
+                    <div class="movie-actions">
+                        <a href="${movie.videoUrl}" class="watch-btn" data-movie-id="${movie.id}">
+                            <i class="fas fa-play"></i> مشاهدة
+                        </a>
+                        <button class="trailer-btn" data-movie-id="${movie.id}">
+                            <i class="fas fa-film"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Add click event for watch button
+            const watchBtn = card.querySelector('.watch-btn');
+            watchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                playMovie(movie);
+            });
+
+            return card;
+        }
+
+        // Play Movie
+        function playMovie(movie) {
+            videoPlayer.innerHTML = `
+                <video controls autoplay style="width: 100%; height: 400px;">
+                    <source src="${movie.videoUrl}" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو
+                </video>
+                <div style="padding: 1rem;">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.description}</p>
+                </div>
+            `;
+            videoModal.style.display = 'block';
+        }
+
+        // Search Functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const allCards = document.querySelectorAll('.movie-card');
+            
+            allCards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
                 }
-                
-                cartItems.appendChild(cartItem);
-                
-                // Show success message
-                alert(`تم إضافة ${productName} إلى السلة`);
             });
         });
 
-        // Category filtering
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const productCards = document.querySelectorAll('.product-card');
-
+        // Category Filtering
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
                 button.classList.add('active');
                 
                 const category = button.getAttribute('data-category');
+                const allCards = document.querySelectorAll('.movie-card');
                 
-                // Filter products
-                productCards.forEach(card => {
+                allCards.forEach(card => {
                     if (category === 'all' || card.getAttribute('data-category') === category) {
                         card.style.display = 'block';
                     } else {
@@ -828,57 +885,46 @@
             });
         });
 
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            
-            productCards.forEach(card => {
-                const productName = card.querySelector('.product-title').textContent.toLowerCase();
-                
-                if (productName.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+        // Close Modal
+        closeModal.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            videoPlayer.innerHTML = '';
         });
 
-        // Wishlist functionality
-        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-        wishlistButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                button.classList.toggle('active');
-                if (button.classList.contains('active')) {
-                    button.style.color = 'var(--danger)';
-                    button.style.borderColor = 'var(--danger)';
-                } else {
-                    button.style.color = 'var(--muted)';
-                    button.style.borderColor = 'var(--muted)';
-                }
-            });
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
-        // Animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.product-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Mobile menu functionality
+        // Mobile Menu
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navIcons = document.querySelector('.nav-icons');
+        const navMenu = document.querySelector('.nav-menu');
         
         mobileMenuBtn.addEventListener('click', () => {
-            navIcons.style.display = navIcons.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.classList.toggle('active');
         });
+
+        // Initialize
+        loadMovies();
+        loadSeries();
+
+        // Lazy Loading for Images
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
     </script>
 </body>
 </html>
